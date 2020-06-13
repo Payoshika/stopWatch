@@ -21,26 +21,21 @@ var Display = function (_React$Component) {
   }
 
   _createClass(Display, [{
-    key: "countIncrement",
-    value: function countIncrement() {
-      var startTime = Date.now();
-      var stopTime = Date.now();
-      var currentCount = stopTime - startTime + this.state.count;
-      this.setState({
-        count: currentCount
-      });
-      startTime = stopTime;
-      console.log("count");
-    }
-  }, {
     key: "startCount",
     value: function startCount() {
       var _this2 = this;
 
       if (!this.timer) {
+        var startTime = Date.now();
         this.timer = setInterval(function () {
-          _this2.countIncrement();
-        }, 1000);
+          var stopTime = Date.now();
+          var currentCount = stopTime - startTime + _this2.state.count;
+          _this2.setState({
+            count: currentCount
+          });
+          startTime = stopTime;
+          console.log(currentCount);
+        }, 250);
       }
     }
   }, {
@@ -72,7 +67,7 @@ var Display = function (_React$Component) {
             "h1",
             { className: "text-center align-middle" },
             " ",
-            this.state.count,
+            Math.floor(this.state.count / 1000),
             "s "
           )
         ),

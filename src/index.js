@@ -6,22 +6,18 @@ class Display extends React.Component{
     this.timer = null;
   }
 
-  countIncrement(){
-    let startTime =Date.now();
-    const stopTime = Date.now();
-    const currentCount = stopTime - startTime + this.state.count;
-    this.setState({
-      count : currentCount
-    })
-    startTime = stopTime;
-    console.log("count");
-  }
-
   startCount(){
     if(!this.timer){
+      let startTime =Date.now();
       this.timer = setInterval(()=>{
-        this.countIncrement()
-      }, 1000)
+        const stopTime = Date.now();
+        const currentCount = stopTime - startTime + this.state.count;
+        this.setState({
+          count : currentCount
+        })
+        startTime = stopTime;
+        console.log(currentCount);
+      }, 250)
     }
   }
 
@@ -41,7 +37,7 @@ class Display extends React.Component{
     return(
       <div className="d-flex flex-column justify-content-center align-items-center my-5 ">
         <div className="count-area d-flex justify-content-center align-items-center mb-5 border border-secondary rounded">
-          <h1 className="text-center align-middle"> {this.state.count}s </h1>
+          <h1 className="text-center align-middle"> {Math.floor(this.state.count /1000)}s </h1>
         </div>
         <div>
           <button className="btn btn-lg btn-outline-primary h2 mx-2" onClick = {() =>{this.startCount()}}>Start</button>
